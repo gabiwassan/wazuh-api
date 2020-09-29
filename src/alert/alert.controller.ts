@@ -22,6 +22,6 @@ export class AlertController {
     @Query('limit') limit: number,
     @Query('id') id: Array<number>,
   ): Array<Alert> {
-    return this.alertService.getById(offset, limit, id);
+    return this.alertService.getBy(offset, limit, id);
   }
 }
