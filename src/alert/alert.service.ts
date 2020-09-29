@@ -11,8 +11,11 @@ export class AlertService {
 
   getBy(offset: number, limit: number, listId: Array<number>): any {
     const collection = reduceCollection(jsonData, offset, limit);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+
+    if (!(listId instanceof Array)) {
+      listId = [listId];
+    }
+
     const data = listId.map(id => collection.filter(alert => alert._id === id));
 
     return { data, total_items: data.length };
