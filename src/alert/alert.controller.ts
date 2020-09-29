@@ -1,10 +1,9 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { ApiUseTags } from '@nestjs/swagger';
+import { Controller, Get, Query } from '@nestjs/common';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { AlertService } from './alert.service';
 import { Alert } from '../interface/alert/alert';
-import { AlertDto } from '../dto/alert.dto';
 
-@ApiUseTags('Alerts')
+@ApiTags('Alerts')
 @Controller('alert')
 export class AlertController {
   constructor(private readonly alertService: AlertService) {}
@@ -14,8 +13,15 @@ export class AlertController {
     return this.alertService.getAll();
   }
 
-  @Post()
-  filterAlerts(@Body() body: AlertDto): Array<Alert> {
-    return this.alertService.getById(body.offset, body.limit, body.id);
+  @Get('/filter')
+  @ApiQuery({ name: 'offset', type: Number })
+  @ApiQuery({ name: 'limit', type: Number })
+  @ApiQuery({ name: 'id', type: [Number] })
+  filterAlerts(
+    @Query('offset') offset: number,
+    @Query('limit') limit: number,
+    @Query('id') id: Array<number>,
+  ): Array<Alert> {
+    return this.alertService.getById(offset, limit, id);
   }
 }

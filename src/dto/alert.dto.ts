@@ -1,13 +1,13 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class AlertDto {
-  @ApiModelProperty({ example: 3 })
+  @ApiProperty({ example: 3 })
   offset: number;
 
-  @ApiModelProperty({ example: 10 })
+  @ApiProperty({ example: 10 })
   limit: number;
 
-  @ApiModelProperty({
+  @ApiProperty({
     example: [
       '4nGmr3QB4YtWQbLv1inX',
       '83Gmr3QB4YtWQbLv1inY',
