@@ -13,6 +13,12 @@ export class AgentController {
     return this.agentService.getAll();
   }
 
+  @Get(':id')
+  @ApiQuery({ name: 'id', type: Number })
+  findOne(@Query('id') id: number): Agent {
+    return this.agentService.findOne(id);
+  }
+
   @Get('/filter')
   @ApiQuery({ name: 'offset', type: Number })
   @ApiQuery({ name: 'limit', type: Number })

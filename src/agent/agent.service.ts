@@ -9,8 +9,18 @@ export class AgentService {
     return jsonData.map(alert => alert._source.agent as Agent);
   }
 
+  private getAgentById(id: number) {
+    const agents = this.getAgents();
+    // @ts-ignore
+    return agents.find(agents => agents.id === id);
+  }
+
   getAll(): Array<Agent> {
     return this.getAgents();
+  }
+
+  findOne(id: number): any {
+    return this.getAgentById(id);
   }
 
   getBy(offset: number, limit: number): any {
