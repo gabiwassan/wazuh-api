@@ -16,7 +16,15 @@ export class AlertService {
       listId = [listId];
     }
 
-    const data = listId.map(id => collection.filter(alert => alert._id === id));
+    const data = [];
+    listId.map(id => {
+      collection.reduce((value, option) => {
+        if (option._id === id) {
+          data.push(option);
+        }
+        return data;
+      }, []);
+    });
 
     return { data, total_items: data.length };
   }
