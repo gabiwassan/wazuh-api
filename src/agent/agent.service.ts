@@ -15,9 +15,9 @@ export class AgentService {
 
   getBy(offset: number, limit: number): any {
     const agentList = this.getAgents();
-    const dataReduced = reduceCollection(agentList, offset, limit)
+    const dataReduced = this.removeDuplicates(agentList);
 
-    const result = this.removeDuplicates(dataReduced);
+    const result  = reduceCollection(dataReduced, offset, limit);
 
     return { total_items: result.length, data: result };
   }
