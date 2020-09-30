@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Agent, Alert } from '../interface/alert/alert';
-import jsonData = require('../mocks/alerts/alerts.json');
+import { Agent } from '../interface/alert/alert';
 import { reduceCollection } from '../utils/utils';
+import jsonData = require('../mocks/alerts/alerts.json');
 
 @Injectable()
 export class AgentService {
