@@ -15,12 +15,28 @@ export class AgentService {
 
   getBy(offset: number, limit: number): any {
     const agentList = this.getAgents();
-    const dataReduced = this.removeDuplicates(agentList);
+    const dataRemoved = this.removeDuplicates(agentList);
 
-    const result  = reduceCollection(dataReduced, offset, limit);
+    const dataReduced = reduceCollection(dataRemoved, offset, limit);
 
-    return { total_items: result.length, data: result };
+    const result = this.findCountAlertByAgent(jsonData, dataReduced);
+
+    return { total_items: dataReduced.length, data: result };
   }
+
+  private findCountAlertByAgent = (alerts, agents) => {
+    alerts.map(alert =>
+      agents.map(agent =>
+        alert._source.agent.id === agent.id
+          ? (agent.total_alerts = agent.total_alerts
+              ? agent.total_alerts + 1
+              : 1)
+          : null,
+      ),
+    );
+
+    return agents;
+  };
 
   private removeDuplicates = data => {
     return data.filter(

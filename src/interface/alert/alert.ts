@@ -24,6 +24,7 @@ export interface Agent {
   id: string;
   name: string;
   ip: string;
+  total_alerts?: number | 0;
 }
 
 export interface Manager {
